@@ -31,4 +31,4 @@ const mangaSchema = new mongoose.Schema({
 
 // Create a Mongoose model based on the schema
 const Manga = mongoose.model('Manga', mangaSchema);
-module.exports = Manga;
+module.exports = Manga; 

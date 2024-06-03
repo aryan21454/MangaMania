@@ -1,0 +1,7 @@
+.mangalist{
+    width:100%;
+    background: 
+    linear-gradient(rgb(49,14,104,.8), rgba(74, 14, 53, 0.9)),
+    url('../../images/second.jpg'); 
+    background-position: center;
+}
