@@ -52,8 +52,7 @@ function Navbar() {
           {!isLoggedin && <>
             <Link to="/signin" className="text-white hover:text-gray-400">Sign In</Link>
           <Link to="/signup" className="text-white hover:text-gray-400">Sign Up</Link>
-          </>}
-          
+          </>}         
           <Link to="/aboutus" className="text-white hover:text-gray-400">About Us</Link>
           <Link to="/mangalist" className="text-white hover:text-gray-400">Manga List</Link>
           {isLoggedin && <>

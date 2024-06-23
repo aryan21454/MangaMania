@@ -19,7 +19,14 @@ function MangaList() {
     
     const handleDelete = async(id) =>{
       if (id) {
-        await axios.delete(`http://localhost:5000/api/v2/deleteManga/${id}`,{data:{id:id},}).then((res)=>console.log(res));
+        try{
+          await axios.delete(`http://localhost:5000/api/v2/deleteManga/${id}`,{data:{id:id},}).then((res)=>console.log(res));
+
+        }
+        catch(err)
+        {
+          console.error(err);
+        }
       }
 
         // arr.splice(ind,'1');
