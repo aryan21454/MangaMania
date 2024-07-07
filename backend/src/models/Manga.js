@@ -1,6 +1,5 @@
 // models/Manga.js
-
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 // Define the schema for manga entries
 const mangaSchema = new mongoose.Schema({
@@ -10,7 +9,6 @@ const mangaSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['Manga', 'Manhua', 'Manhwa'],
         required: true
     },
     chaptersRead: {
@@ -32,4 +30,5 @@ const mangaSchema = new mongoose.Schema({
 
 // Create a Mongoose model based on the schema
 const Manga = mongoose.model('Manga', mangaSchema);
-module.exports = Manga; 
+export default Manga;
+ 

@@ -9,7 +9,6 @@ import UpdateManga from './Modals/UpdateManga';
 import axios from 'axios';
 import { useEffect } from 'react';
 function MangaList() {
- let id = sessionStorage.getItem('id');
  const [arr , setArr] = useState([]);
     const [isAdd, setIsAdd] = useState(false);
     const [isUpdate , setIsUpdate ] = useState(false);
@@ -18,29 +17,31 @@ function MangaList() {
     
     
     const handleDelete = async(id) =>{
-      if (id) {
+     
         try{
-          await axios.delete(`http://localhost:5000/api/v2/deleteManga/${id}`,{data:{id:id},}).then((res)=>console.log(res));
-
+          await axios.delete(`http://localhost:8000/api/v1/mangas/deleteManga/${id}`,{data:{id:id},}).then((res)=>console.log(res));
         }
         catch(err)
         {
           console.error(err);
         }
-      }
 
-        // arr.splice(ind,'1');
+        
         
     // setArr([...arr]);
     }
     useEffect(() => {
-     if (id)
-      {
-        const fetchData = async () => {
-          await axios.get(`http://localhost:5000/api/v2/getMangaList/${id}`).then((res)=>setArr(res.data.list));
-        }
-        fetchData();
-      }
+   
+      
+       try {
+         const fetchData = async () => {
+         const res=   await axios.get(`http://localhost:8000/api/v1/mangas/getMangaList`);
+         setArr(res.data.data);  
+       }
+       fetchData();
+       } catch (error) {
+        console.log(error); 
+       }
     }, [handleDelete]);
   return (
     <div className="mangalist flex flex-col items-center">

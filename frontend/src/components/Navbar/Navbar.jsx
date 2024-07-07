@@ -8,7 +8,6 @@ import { authActions } from '../../store';
 function Navbar() {
     const isLoggedin = useSelector((state)=>state.isLoggedin);
     const dispatch = useDispatch();
-    console.log(isLoggedin);
     const [isopen  , setisopen] = useState(false);
   return (
     <div>
@@ -19,7 +18,7 @@ function Navbar() {
           MangaMania
         </div>
         <div className="md:hidden flex space-x-4 ">
-        <Link to="/" className="text-white hover:text-gray-400">
+        <Link to="/home" className="text-white hover:text-gray-400">
             <CgProfile className=" inline-block w-8 h-8"/> 
           </Link>
           <div>
@@ -28,7 +27,7 @@ function Navbar() {
           </button>
           {isopen && (
         <div className="md:hidden ">
-          <Link to="/" className="block text-white hover:text-gray-400 p-2">Home</Link>
+          <Link to="/home" className="block text-white hover:text-gray-400 p-2">Home</Link>
           {!isLoggedin && <>
             <Link to="/signin" className="text-white hover:text-gray-400">Sign In</Link>
           <Link to="/signup" className="text-white hover:text-gray-400">Sign Up</Link>

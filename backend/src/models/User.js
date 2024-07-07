@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -17,7 +18,6 @@ const userSchema = new mongoose.Schema({
     },
     refreshToken :{
         type : String,
-        required : true, 
     },
     list :[{
         type: mongoose.Types.ObjectId,
@@ -36,8 +36,9 @@ userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 }
 
-userSchema.methods.generateAccessToken  = async  () =>{
-    await jwt.sign({
+userSchema.methods.generateAccessToken  = async function () {
+    
+    const token =  await jwt.sign({
         _id : this._id,
         email : this.email,
         username : this.username,
@@ -46,24 +47,26 @@ userSchema.methods.generateAccessToken  = async  () =>{
     ,process.env.ACCESS_TOKEN_SECRET 
     ,{
         expiresIn : process.env.ACCESS_TOKEN_EXPIRY
-    }
-    
-    )
+    });
+    return token;
 }
 
-userSchema.methods.generateRefreshToken = async () =>{
-   await jwt.sign({
-        _id : this._id,
-        email : this.email,
-        username : this.username,
+userSchema.methods.generateRefreshToken = async function (){
+   try {
+    const token = await jwt.sign({
+         _id : this._id,
+         email : this.email,
+         username : this.username,
 
-    }
-    ,process.env.REFRESH_TOKEN_SECRET 
-    ,{
-        expiresIn : process.env.REFRESH_TOKEN_EXPIRY
-    }
-    
-    )
+     }
+     ,process.env.REFRESH_TOKEN_SECRET 
+     ,{
+         expiresIn : process.env.REFRESH_TOKEN_EXPIRY
+     })
+     return token;
+   } catch (error) {
+    console.log(error);
+   }
 };
 
 

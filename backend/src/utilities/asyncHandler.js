@@ -1,4 +1,4 @@
-export const asyncHandler = (fn) => async (req, res, next) =>
+ const asyncHandler = (fn) => async (req, res, next) =>
     {
         try {
             await fn(req, res, next);
@@ -7,3 +7,4 @@ export const asyncHandler = (fn) => async (req, res, next) =>
             res.status(500).send('Internal Server Error');
         }
     }
+export {asyncHandler}
