@@ -12,7 +12,7 @@ function SignUp() {
   }
   const submit = async (e)=>{
     e.preventDefault();
-    await axios.post('http://localhost:5000/api/v1/register', inputs).then((response)=> {
+    await axios.post('http://localhost:8000/api/v1/users/register', inputs).then((response)=> {
       if (response.data.message === "User created successfully")
         {
           alert(response.data.message);

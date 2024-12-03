@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { authActions } from '../../store';
 
 
-
 function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -16,13 +15,23 @@ function SignIn() {
     const {name, value} = e.target; 
     setInputs({...inputs, [name]: value});  
   }
+  // console.log(inputs);
   const submit = async (e)=>{
+   try {
     e.preventDefault();
-    await axios.post('http://localhost:5000/api/v1/signin', inputs).then((response)=> {
-      sessionStorage.setItem('id', response.data.others._id);
-      dispatch(authActions.login());
+    // console.log(inputs);
+   const response =  await axios.post('http://localhost:8000/api/v1/users/login', inputs)
+   console.log(response);
+  
+  if (response.data.message === "User logged in successfully")
+    {
+      dispatch(authActions.login(response.data.data));
       navigate('/mangalist');
-  });
+    }
+
+   } catch (error) {
+    console.log(error);
+   }
   }
   return (
     <div className=' signin flex flex-col md:flex-row'>
